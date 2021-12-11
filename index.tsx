@@ -1,31 +1,26 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Hello from './Hello';
+import styled, { ThemeProvider } from 'styled-components';
 import './style.css';
 
-interface AppProps { }
-interface AppState {
-  name: string;
-}
+const Container = styled.main`
+`;
 
-class App extends Component<AppProps, AppState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'React'
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <Hello name={this.state.name} />
-        <p>
-          Start editing to see some magic happen :)
-        </p>
-      </div>
-    );
-  }
-}
+const App = () => {
+  const theme = {
+    palete: {
+      primary: '#171282',
+      secondary: '#4f1282',
+    },
+  };
+  return (
+    <ThemeProvider theme={theme}>
+      <Container>
+        <h4>Employees</h4>
+        <br />
+      </Container>
+    </ThemeProvider>
+  );
+};
 
 render(<App />, document.getElementById('root'));

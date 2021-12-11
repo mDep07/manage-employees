@@ -5,8 +5,11 @@
   "dependencies": {
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
+    "@types/styled-components": "^5.1.17",
     "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react-dom": "^16.8.0",
+    "react-is": ">= 16.8.0",
+    "styled-components": "^5.3.3"
   },
   "scripts": {
     "start": "react-scripts-ts start",
