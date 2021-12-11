@@ -20,13 +20,18 @@ const Employee = styled.div`
     font-size: 1.6rem;
     margin: 5px 0;
   }
+
+  &:hover {
+    box-shadow: 0 2px 2px #ccc;
+  }
 `;
 
 export default function ({ employee }: { employee: IEmployee }) {
   return (
     <Employee>
       <h4 className="title">
-        {employee.name} {employee.lastName} {employee.birth && '27 años'}
+        {employee.name} {employee.lastName}{' '}
+        {employee.birth && <small>27 años</small>}
       </h4>
       <small>desde {employee.workerFrom}</small>
       <small>
