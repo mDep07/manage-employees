@@ -39,10 +39,8 @@ const Container = styled.main`
 
 const App = () => {
   const theme = {
-    palete: {
-      primary: '#171282',
-      secondary: '#4f1282',
-    },
+    primary: '#5342f4',
+    secondary: '#4f1282',
   };
   return (
     <ThemeProvider theme={theme}>

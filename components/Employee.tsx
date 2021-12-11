@@ -23,14 +23,8 @@ const Employee = styled.div`
 `;
 
 export default function ({ employee }: { employee: IEmployee }) {
-  const theme = {
-    palete: {
-      primary: '#171282',
-      secondary: '#4f1282',
-    },
-  };
   return (
-    <Employee theme={theme}>
+    <Employee>
       <h4 className="title">
         {employee.name} {employee.lastName} {employee.birth && '27 años'}
       </h4>
