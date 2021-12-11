@@ -9,9 +9,20 @@ const Employee = styled.div`
   & * {
     margin: 0;
   }
+  & small {
+    display: block;
+  }
+  & .title {
+    font-size: 1.2rem;
+    margin: 5px 0;
+  }
+  & .salary {
+    font-size: 1.6rem;
+    margin: 5px 0;
+  }
 `;
 
-export default function ({ employee }) {
+export default function ({ employee }: { employee: IEmployee }) {
   const theme = {
     palete: {
       primary: '#171282',
@@ -20,12 +31,16 @@ export default function ({ employee }) {
   };
   return (
     <Employee theme={theme}>
-      <h4>
+      <h4 className="title">
         {employee.name} {employee.lastName} {employee.birth && '27 años'}
       </h4>
-      <p>{employee.workerFrom}</p>
-      <p>{employee.salary}</p>
-      <p>{employee.monthlyHours}</p>
+      <small>desde {employee.workerFrom}</small>
+      <small>
+        <strong>{employee.monthlyHours}</strong> Hrs/Mes
+      </small>
+      <p className="salary">
+        <strong>${employee.salary}</strong>
+      </p>
     </Employee>
   );
 }

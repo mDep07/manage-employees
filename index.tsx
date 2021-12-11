@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import './style.css';
 
-import Employee from './components/Employee';
+import Employees from './components/Employees';
 
 export interface IEmployee {
   id: number;
@@ -24,6 +24,14 @@ const employees: IEmployee[] = [
     salary: 70000,
     monthlyHours: 160,
   },
+  {
+    id: 2,
+    name: 'Mark',
+    lastName: 'Antony',
+    workerFrom: '2020-01-01',
+    salary: 70000,
+    monthlyHours: 180,
+  },
 ];
 
 const Container = styled.main`
@@ -40,11 +48,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Container>
         <h4>Employees</h4>
-        <div>
-          <Employee />
-          <Employee />
-          <Employee />
-        </div>
+        <Employees employees={employees} />
       </Container>
     </ThemeProvider>
   );
