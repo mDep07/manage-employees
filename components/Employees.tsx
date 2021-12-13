@@ -21,16 +21,23 @@ const AddEmployeeButton = styled.button`
   color: white;
   font-weight: 900;
   font-size: 1rem;
+  box-shadow: 0 3px 0 #232323;
 
   &:hover {
     filter: brightness(.97);
+    box-shadow: 0 2px 0 #232323;
+    transform: translateY(1px);
   }
   &:active {
     filter: brightness(.9);
+    box-shadow: 0 0 0 #232323;
+    transform: translateY(3px);
   }
   &:disabled {
     filter: brightness(.6);
     cursor: not-allowed;
+    box-shadow: 0 0 0 #232323;
+    transform: translateY(3px);
   }
 `;
 

@@ -32,22 +32,25 @@ const AddEmployeeFieldError = styled.div`
   padding: 2px 6px;
 `;
 
-const Buttons = styled.button`
+const Button = styled.button`
   font-size: 1rem;
   padding: 10px;
   background-color: ${({ color }) => color};
   border: none;
-  color: white;
+  color: #fff;
   cursor: pointer;
   min-width: 40%;
   margin: 0 4px;
+  box-shadow: 0 3px 0 #232323;
+  margin-bottom: 3px;
   &:hover {
-    box-shadow: 0 1px 2px ${({ color }) => color};
+    box-shadow: 0 2px 0 #232323;
+    transform: translateY(1px);
   }
   &:active {
-    transform: scale(.94)
+    box-shadow: 0 0 0 #232323;
+    transform: translateY(3px);
   }
-
 `;
 type Params = { employee: IEmployee; save: Function; cancel: Function };
 export default function ({ employee, save, cancel }: Params) {
@@ -159,12 +162,12 @@ export default function ({ employee, save, cancel }: Params) {
           </AddEmployeeFormControl>
 
           <div style={{ textAlign: 'center' }}>
-            <Buttons color="lightgreen" type="submit">
+            <Button color="#009e49" type="submit">
               Save
-            </Buttons>
-            <Buttons color="lightgrey" type="reset">
+            </Button>
+            <Button color="#c2c2c2" type="reset">
               Cancel
-            </Buttons>
+            </Button>
           </div>
         </AddEmployeeForm>
       )}

@@ -6,7 +6,9 @@ import { IEmployee } from '../index';
 const Employee = styled.div`
   background-color: #f5f5f5;
   padding: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 3px 0 #c7c7c7;
+
   & * {
     margin: 0;
   }
@@ -21,9 +23,26 @@ const Employee = styled.div`
     font-size: 1.6rem;
     margin: 5px 0;
   }
+`;
 
+const Button = styled.button`
+  font-size: .75rem;
+  padding: 4px;
+  background-color: ${({ color }) => color};
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  min-width: 20%;
+  margin: 0 4px;
+  box-shadow: 0 3px 0 #232323;
+  margin-bottom: 3px;
   &:hover {
-    box-shadow: 0 2px 2px #ccc;
+    box-shadow: 0 2px 0 #232323;
+    transform: translateY(1px);
+  }
+  &:active {
+    box-shadow: 0 0 0 #232323;
+    transform: translateY(3px);
   }
 `;
 
@@ -45,6 +64,8 @@ export default function ({ employee }: { employee: IEmployee }) {
       <p className="salary">
         <strong>${employee.salary}</strong>
       </p>
+      <Button color="#2d73e3">Edit</Button>
+      <Button color="#e32d2d">Delete</Button>
     </Employee>
   );
 }
