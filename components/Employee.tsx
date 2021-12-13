@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { IEmployee } from '../index';
 
 const Employee = styled.div`
@@ -27,15 +28,19 @@ const Employee = styled.div`
 `;
 
 export default function ({ employee }: { employee: IEmployee }) {
+  const age = employee.birth
+    ? moment().diff(moment(employee.birth), 'years')
+    : '';
   return (
     <Employee>
       <h4 className="title">
-        {employee.name} {employee.lastName}{' '}
-        {employee.birth && <small>27 años</small>}
+        {employee.name} {employee.lastName} {age && <small>({age} años)</small>}
       </h4>
-      <small>desde {employee.workerFrom}</small>
       <small>
-        <strong>{employee.monthlyHours}</strong> Hrs/Mes
+        Worker from <em>{moment(employee.workerFrom).from(moment())}</em>
+      </small>
+      <small>
+        <strong>{employee.monthlyHours}</strong> Hrs/month
       </small>
       <p className="salary">
         <strong>${employee.salary}</strong>
