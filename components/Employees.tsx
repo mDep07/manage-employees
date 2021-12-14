@@ -53,10 +53,41 @@ export default function ({ employees: list }: { employees: IEmployee[] }) {
   };
   const cancelAddEmployee = () => setAddEmployee(false);
 
+  const initialStateDialog = {
+    open: false,
+    children: null,
+    actions: null,
+  };
+  const [dialog, setDialog] = useState(initialStateDialog);
+
+  const handleRemoveEmployee = (employeeId: number) => {
+    setDialog({
+      open: true,
+      children: <p>Are you sure to remove this employee?</p>,
+      actions: [
+        { label: 'Cancel', action: () => setDialog(initialStateDialog) },
+        {
+          label: 'Accept',
+          action: () => {
+            const employeeIndex = employees.findIndex(
+              (e) => e.id === employeeId
+            );
+            setDialog(initialStateDialog);
+            setEmployees([
+              ...employees.slice(0, employeeIndex),
+              ...employees.slice(employeeIndex + 1),
+            ]);
+          },
+          bgColor: 'var(--color)',
+        },
+      ],
+    });
+  };
+
   return (
     <Employees>
       {employees.map((e) => (
-        <Employee key={e.id} employee={e} />
+        <Employee key={e.id} employee={e} remove={handleRemoveEmployee} />
       ))}
       {addEmployee && (
         <EmployeeForm
@@ -79,9 +110,7 @@ export default function ({ employees: list }: { employees: IEmployee[] }) {
         Add Employee
       </AddEmployeeButton>
 
-      <Dialog open={true}>
-        <p>LALALA</p>
-      </Dialog>
+      <Dialog {...dialog} />
     </Employees>
   );
 }
