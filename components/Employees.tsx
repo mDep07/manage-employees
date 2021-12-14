@@ -54,7 +54,6 @@ export default function ({ employees: list }: { employees: IEmployee[] }) {
   const cancelAddEmployee = () => setAddEmployee(false);
 
   const initialStateDialog = {
-    open: false,
     children: null,
     actions: null,
   };
@@ -62,7 +61,6 @@ export default function ({ employees: list }: { employees: IEmployee[] }) {
 
   const handleRemoveEmployee = (employeeId: number) => {
     setDialog({
-      open: true,
       children: <p>Are you sure to remove this employee?</p>,
       actions: [
         { label: 'Cancel', action: () => setDialog(initialStateDialog) },
@@ -77,6 +75,11 @@ export default function ({ employees: list }: { employees: IEmployee[] }) {
               ...employees.slice(0, employeeIndex),
               ...employees.slice(employeeIndex + 1),
             ]);
+
+            setDialog({
+              ...dialog,
+              children: <p>Employee removing correctly?</p>,
+            });
           },
           bgColor: 'var(--color)',
         },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Button from './Button';
 
@@ -42,13 +42,15 @@ const Dialog = styled.dialog`
 `;
 
 type Params = {
-  open: boolean;
   children: any;
   actions?: { label: string; action: Function; bgColor?: string }[];
 };
 
 export default function ({ open, children, actions }: Params) {
-  if (open) {
+  const [showModal, setShowModal] = useState(false);
+  useEffect(() => setShowModal(!!children), [children]);
+
+  if (showModal) {
     return (
       <Dialog>
         <div className="dialog__body">{children}</div>
@@ -60,7 +62,7 @@ export default function ({ open, children, actions }: Params) {
               </Button>
             ))
           ) : (
-            <Button onClick={() => console.log('Ok')}>Ok</Button>
+            <Button onClick={() => setShowModal(false)}>Ok</Button>
           )}
         </div>
       </Dialog>
