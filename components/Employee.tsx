@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { IEmployee } from '../index';
+import Button from './Button';
 
 const Employee = styled.div`
   background-color: #f5f5f5;
@@ -9,7 +10,7 @@ const Employee = styled.div`
   margin-bottom: 10px;
   box-shadow: 0 3px 0 #c7c7c7;
 
-  & * {
+  & *:not(button) {
     margin: 0;
   }
   & small {
@@ -22,27 +23,6 @@ const Employee = styled.div`
   & .salary {
     font-size: 1.6rem;
     margin: 5px 0;
-  }
-`;
-
-const Button = styled.button`
-  font-size: .75rem;
-  padding: 4px;
-  background-color: ${({ color }) => color};
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  min-width: 20%;
-  margin: 0 4px;
-  box-shadow: 0 3px 0 #232323;
-  margin-bottom: 3px;
-  &:hover {
-    box-shadow: 0 2px 0 #232323;
-    transform: translateY(1px);
-  }
-  &:active {
-    box-shadow: 0 0 0 #232323;
-    transform: translateY(3px);
   }
 `;
 
@@ -64,8 +44,12 @@ export default function ({ employee }: { employee: IEmployee }) {
       <p className="salary">
         <strong>${employee.salary}</strong>
       </p>
-      <Button color="#2d73e3">Edit</Button>
-      <Button color="#e32d2d">Delete</Button>
+      <Button color="#2d73e3" onClick={() => console.log('Edit')}>
+        Edit
+      </Button>
+      <Button color="#e32d2d" onClick={() => console.log('Delete')}>
+        Delete
+      </Button>
     </Employee>
   );
 }

@@ -5,6 +5,7 @@ import moment from 'moment';
 import { IEmployee } from '../index';
 import Employee from './Employee';
 import EmployeeForm from './EmployeeForm';
+import Dialog from './Dialog';
 
 const Employees = styled.section`
   --color: ${({ theme }) => theme.primary || '#CCC'};
@@ -44,7 +45,7 @@ const AddEmployeeButton = styled.button`
 export default function ({ employees: list }: { employees: IEmployee[] }) {
   const [employees, setEmployees] = useState(list);
 
-  const [addEmployee, setAddEmployee] = useState(true);
+  const [addEmployee, setAddEmployee] = useState(false);
   const saveAddEmployee = (employe: IEmployee) => {
     console.log({ employe });
     setEmployees([...employees, employe]);
@@ -77,6 +78,10 @@ export default function ({ employees: list }: { employees: IEmployee[] }) {
       >
         Add Employee
       </AddEmployeeButton>
+
+      <Dialog open={true}>
+        <p>LALALA</p>
+      </Dialog>
     </Employees>
   );
 }
