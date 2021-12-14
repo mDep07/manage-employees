@@ -15,16 +15,17 @@ const TitleForm = styled.h4`
   text-align: center;
 `;
 
-const AddEmployeeForm = styled(Form)`
+const StyledForm = styled(Form)`
   padding: 5px;
   background-color: var(--color);
   margin-bottom: 5px;
 `;
 
-const AddEmployeeFormControl = styled.div`
+const StyledFormControl = styled.div`
   margin-bottom: 5px;
 `;
-const AddEmployeeField = styled(Field)`
+
+const StyledField = styled(Field)`
   font-size: 1rem;
   padding: 10px 5px;
   display: block;
@@ -34,9 +35,17 @@ const AddEmployeeField = styled(Field)`
   color: black;
   ${({ error }) => (error ? 'border-bottom: 2px solid red;' : '')}
 `;
-const AddEmployeeFieldError = styled.div`
+
+const StyledLabel = styled.label`
+  font-size: .8em;
+  color: white;
+  padding: 2px 6px;
+  font-weight: 700;
+`;
+
+const StyledFieldError = styled.div`
   display: inline-block;
-  font-size: .8rem;
+  font-size: .8em;
   background-color: red;
   color: white;
   padding: 2px 6px;
@@ -101,10 +110,11 @@ export default function ({ employee, save, cancel }: Params) {
         onReset={() => cancel()}
       >
         {({ values, touched, errors, isSubmitting }) => (
-          <AddEmployeeForm>
+          <StyledForm>
             <input id="id" name="id" type="hidden" value={values.id} />
-            <AddEmployeeFormControl>
-              <AddEmployeeField
+            <StyledFormControl>
+              <StyledLabel for="lastName">Name</StyledLabel>
+              <StyledField
                 id="name"
                 name="name"
                 type="text"
@@ -113,11 +123,12 @@ export default function ({ employee, save, cancel }: Params) {
                 value={values.name}
               />
               {errors.name && touched.name && (
-                <AddEmployeeFieldError>{errors.name}</AddEmployeeFieldError>
+                <StyledFieldError>{errors.name}</StyledFieldError>
               )}
-            </AddEmployeeFormControl>
-            <AddEmployeeFormControl>
-              <AddEmployeeField
+            </StyledFormControl>
+            <StyledFormControl>
+              <StyledLabel for="lastName">Last Name</StyledLabel>
+              <StyledField
                 id="lastName"
                 name="lastName"
                 type="text"
@@ -126,32 +137,35 @@ export default function ({ employee, save, cancel }: Params) {
                 value={values.lastName}
               />
               {errors.lastName && touched.lastName && (
-                <AddEmployeeFieldError>{errors.lastName}</AddEmployeeFieldError>
+                <StyledFieldError>{errors.lastName}</StyledFieldError>
               )}
-            </AddEmployeeFormControl>
+            </StyledFormControl>
 
-            <AddEmployeeFormControl>
-              <AddEmployeeField
+            <StyledFormControl>
+              <StyledLabel for="lastName">Birth</StyledLabel>
+              <StyledField
                 id="birth"
                 name="birth"
                 type="date"
                 placeholder={new Date().toString()}
                 value={values.birth}
               />
-            </AddEmployeeFormControl>
+            </StyledFormControl>
 
-            <AddEmployeeFormControl>
-              <AddEmployeeField
+            <StyledFormControl>
+              <StyledLabel for="lastName">Worker From</StyledLabel>
+              <StyledField
                 id="workerFrom"
                 name="workerFrom"
                 type="date"
                 placeholder={new Date().toString()}
                 value={values.workerFrom}
               />
-            </AddEmployeeFormControl>
+            </StyledFormControl>
 
-            <AddEmployeeFormControl>
-              <AddEmployeeField
+            <StyledFormControl>
+              <StyledLabel for="lastName">Salary</StyledLabel>
+              <StyledField
                 id="salary"
                 name="salary"
                 type="number"
@@ -160,12 +174,13 @@ export default function ({ employee, save, cancel }: Params) {
                 value={values.salary}
               />
               {errors.salary && touched.salary && (
-                <AddEmployeeFieldError>{errors.salary}</AddEmployeeFieldError>
+                <StyledFieldError>{errors.salary}</StyledFieldError>
               )}
-            </AddEmployeeFormControl>
+            </StyledFormControl>
 
-            <AddEmployeeFormControl>
-              <AddEmployeeField
+            <StyledFormControl>
+              <StyledLabel for="lastName">Monthly Hours</StyledLabel>
+              <StyledField
                 id="monthlyHours"
                 name="monthlyHours"
                 type="number"
@@ -174,11 +189,9 @@ export default function ({ employee, save, cancel }: Params) {
                 value={values.monthlyHours}
               />
               {errors.monthlyHours && touched.monthlyHours && (
-                <AddEmployeeFieldError>
-                  {errors.monthlyHours}
-                </AddEmployeeFieldError>
+                <StyledFieldError>{errors.monthlyHours}</StyledFieldError>
               )}
-            </AddEmployeeFormControl>
+            </StyledFormControl>
 
             <div style={{ textAlign: 'center' }}>
               <Button color="#009e49" type="submit">
@@ -188,7 +201,7 @@ export default function ({ employee, save, cancel }: Params) {
                 Cancel
               </Button>
             </div>
-          </AddEmployeeForm>
+          </StyledForm>
         )}
       </Formik>
     </React.Fragment>
