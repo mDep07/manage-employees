@@ -26,13 +26,12 @@ const Employee = styled.div`
   }
 `;
 
-export default function ({
-  employee,
-  remove,
-}: {
+interface Params {
   employee: IEmployee;
   remove: Function;
-}) {
+  edit: Function;
+}
+export default function ({ employee, remove, edit }: Params) {
   const age = employee.birth
     ? moment().diff(moment(employee.birth), 'years')
     : '';
@@ -50,7 +49,7 @@ export default function ({
       <p className="salary">
         <strong>${employee.salary}</strong>
       </p>
-      <Button color="#2d73e3" onClick={() => console.log('Edit')}>
+      <Button color="#2d73e3" onClick={() => edit(employee.id)}>
         Edit
       </Button>
       <Button color="#e32d2d" onClick={() => remove(employee.id)}>

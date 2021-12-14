@@ -45,13 +45,29 @@ const AddEmployeeButton = styled.button`
 export default function ({ employees: list }: { employees: IEmployee[] }) {
   const [employees, setEmployees] = useState(list);
 
-  const [addEmployee, setAddEmployee] = useState(false);
-  const saveAddEmployee = (employe: IEmployee) => {
-    console.log({ employe });
-    setEmployees([...employees, employe]);
-    setAddEmployee(false);
+  const initialStateAddEditEmployee: IEmployee & {
+    action: 'add' | 'edit' | '';
+  } = {
+    id: 0,
+    name: '',
+    lastName: '',
+    workerFrom: moment().format(),
+    salary: 0,
+    monthlyHours: 0,
+    action: '',
   };
-  const cancelAddEmployee = () => setAddEmployee(false);
+
+  const [addEditEmployee, setAddEditEmployee] = useState(
+    initialStateAddEditEmployee
+  );
+  const saveEmployee = (employee: IEmployee) => {
+    if (employee.id === 0) {
+      setEmployees([...employees, employee]);
+      setAddEditEmployee(initialStateAddEditEmployee);
+    }
+  };
+  const cancelAddEmployee = () =>
+    setAddEditEmployee(initialStateAddEditEmployee);
 
   const initialStateDialog = {
     children: null,
@@ -87,28 +103,47 @@ export default function ({ employees: list }: { employees: IEmployee[] }) {
     });
   };
 
+  const handleEditEmployee = (employeeId: number) => {
+    const employee = employees.find((e) => e.id === employeeId);
+    setAddEditEmployee({ ...addEditEmployee, action: 'edit', ...employee });
+  };
+
   return (
     <Employees>
-      {employees.map((e) => (
-        <Employee key={e.id} employee={e} remove={handleRemoveEmployee} />
-      ))}
-      {addEmployee && (
+      {employees.map((e) => {
+        if (e.id === addEditEmployee.id && addEditEmployee.action === 'edit') {
+          return (
+            <EmployeeForm
+              employee={addEditEmployee}
+              save={saveEmployee}
+              cancel={cancelAddEmployee}
+            />
+          );
+        }
+
+        return (
+          <Employee
+            key={e.id}
+            employee={e}
+            remove={handleRemoveEmployee}
+            edit={handleEditEmployee}
+          />
+        );
+      })}
+
+      {addEditEmployee.action === 'add' && (
         <EmployeeForm
-          employee={{
-            id: 0,
-            name: '',
-            lastName: '',
-            workerFrom: moment().format(),
-            salary: 0,
-            monthlyHours: 0,
-          }}
-          save={saveAddEmployee}
+          employee={addEditEmployee}
+          save={saveEmployee}
           cancel={cancelAddEmployee}
         />
       )}
+
       <AddEmployeeButton
-        disabled={addEmployee}
-        onClick={() => setAddEmployee(true)}
+        disabled={addEditEmployee.action !== ''}
+        onClick={() =>
+          setAddEditEmployee({ ...addEditEmployee, action: 'add' })
+        }
       >
         Add Employee
       </AddEmployeeButton>
