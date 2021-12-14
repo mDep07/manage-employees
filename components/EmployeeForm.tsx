@@ -62,6 +62,7 @@ const Button = styled.button`
     transform: translateY(3px);
   }
 `;
+
 type Params = { employee: IEmployee; save: Function; cancel: Function };
 export default function ({ employee, save, cancel }: Params) {
   return (
