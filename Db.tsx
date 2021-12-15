@@ -1,4 +1,4 @@
-import { Low, JSONFile, LowSync, LocalStorage } from 'lowdb';
+import { LowSync, LocalStorage } from 'lowdb';
 import { IEmployee } from './index';
 
 type Data = {
