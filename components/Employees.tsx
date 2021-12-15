@@ -42,9 +42,11 @@ const AddEmployeeButton = styled.button`
   }
 `;
 
-export default function ({ employees: list }: { employees: IEmployee[] }) {
-  const [employees, setEmployees] = useState(list);
-
+interface ParamsEmployees {
+  employees: IEmployee[];
+  add: (employee: IEmployee) => Promise<boolean>;
+}
+export default function ({ employees, add }: ParamsEmployees) {
   const initialStateAddEditEmployee: IEmployee & {
     action: 'add' | 'edit' | '';
   } = {
@@ -60,9 +62,10 @@ export default function ({ employees: list }: { employees: IEmployee[] }) {
   const [addEditEmployee, setAddEditEmployee] = useState(
     initialStateAddEditEmployee
   );
-  const saveEmployee = (employee: IEmployee) => {
+  const saveEmployee = async (employee: IEmployee) => {
     if (employee.id === 0) {
-      setEmployees([...employees, employee]);
+      const employeeCreated = await add(employee);
+      console.log({ employeeCreated });
       setAddEditEmployee(initialStateAddEditEmployee);
     }
   };
@@ -87,10 +90,10 @@ export default function ({ employees: list }: { employees: IEmployee[] }) {
               (e) => e.id === employeeId
             );
             setDialog(initialStateDialog);
-            setEmployees([
-              ...employees.slice(0, employeeIndex),
-              ...employees.slice(employeeIndex + 1),
-            ]);
+            // setEmployees([
+            //   ...employees.slice(0, employeeIndex),
+            //   ...employees.slice(employeeIndex + 1),
+            // ]);
 
             setDialog({
               ...dialog,
