@@ -1,17 +1,15 @@
 import { LowSync, LocalStorage } from 'lowdb';
 import { IEmployee } from './index';
 
-type Data = {
-  employees: IEmployee[];
-};
-const adapter = new LocalStorage<Data>('db.json');
+type Data = { employees: IEmployee[] };
+const adapter = new LocalStorage<Data>('db');
 const db = new LowSync<Data>(adapter);
+db.read();
 
 export default function () {
-  console.log({ db });
-
-  const getEmployees = (): IEmployee[] => {
-    return db.data.employees;
+  const getEmployees = (): IEmployee[] | null => {
+    const { employees } = db.data;
+    return employees;
   };
 
   const getEmployee = (employeeId: number): IEmployee | undefined => {
@@ -19,15 +17,22 @@ export default function () {
     return employees.find((e) => e.id === employeeId);
   };
 
-  const createEmployee = async (employee: IEmployee) => {
-    try {
-      db.data.employees.push(employee);
-      await db.write();
-      return true;
-    } catch (err) {
-      return false;
-    }
+  const createEmployee = (employee: IEmployee) => {
+    const { employees } = db.data;
+    employees.push(employee);
+    db.write();
+    return employee;
   };
 
-  return { getEmployees, getEmployee, createEmployee };
+  const removeEmployee = (employeeId: number) => {
+    let { employees } = db.data;
+    const employeeIndex = employees.findIndex((e) => e.id === employeeId);
+    employees = [
+      ...employees.slice(0, employeeIndex),
+      ...employees.slice(employeeIndex + 1),
+    ];
+    db.write();
+  };
+
+  return { getEmployees, getEmployee, createEmployee, removeEmployee };
 }

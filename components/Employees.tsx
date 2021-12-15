@@ -44,7 +44,7 @@ const AddEmployeeButton = styled.button`
 
 interface ParamsEmployees {
   employees: IEmployee[];
-  add: (employee: IEmployee) => Promise<boolean>;
+  add: (employee: IEmployee) => void;
 }
 export default function ({ employees, add }: ParamsEmployees) {
   const initialStateAddEditEmployee: IEmployee & {

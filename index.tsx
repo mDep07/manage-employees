@@ -16,25 +16,6 @@ export interface IEmployee {
   monthlyHours: number;
 }
 
-// const employees: IEmployee[] = [
-//   {
-//     id: 1,
-//     name: 'Fulano',
-//     lastName: 'Fernandez',
-//     workerFrom: '2020-01-01',
-//     salary: 70000,
-//     monthlyHours: 160,
-//   },
-//   {
-//     id: 2,
-//     name: 'Mark',
-//     lastName: 'Antony',
-//     workerFrom: '2020-01-01',
-//     salary: 70000,
-//     monthlyHours: 180,
-//   },
-// ];
-
 const Container = styled.main`
 `;
 
@@ -47,10 +28,9 @@ const useEmployees = (initialState: IEmployee[]) => {
     if (listEmployees) setEmployees([...listEmployees]);
   }, []);
 
-  const addEmployee = async (employee: IEmployee) => {
-    const employeeCreated = await createEmployee(employee);
-    if (employeeCreated) setEmployees([...employees, employee]);
-    return employeeCreated;
+  const addEmployee = (employee: IEmployee) => {
+    const employeeCreated = createEmployee(employee);
+    if (employeeCreated) setEmployees([...employees, { ...employeeCreated }]);
   };
 
   return { employees, addEmployee };
