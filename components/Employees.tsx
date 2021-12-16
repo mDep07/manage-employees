@@ -45,9 +45,11 @@ const AddEmployeeButton = styled.button`
 interface ParamsEmployees {
   employees: IEmployee[];
   add: (employee: IEmployee) => void;
+  edit: (employee: IEmployee) => void;
+  remove: (employeeId: number) => void;
 }
-export default function ({ employees, add }: ParamsEmployees) {
-  const initialStateAddEditEmployee: IEmployee & {
+export default function ({ employees, add, edit, remove }: ParamsEmployees) {
+  const initialState: IEmployee & {
     action: 'add' | 'edit' | '';
   } = {
     id: 0,
@@ -59,18 +61,17 @@ export default function ({ employees, add }: ParamsEmployees) {
     action: '',
   };
 
-  const [addEditEmployee, setAddEditEmployee] = useState(
-    initialStateAddEditEmployee
-  );
-  const saveEmployee = async (employee: IEmployee) => {
+  const [employee, setEmployee] = useState(initialState);
+  const saveEmployee = (employee: IEmployee) => {
     if (employee.id === 0) {
-      const employeeCreated = await add(employee);
-      console.log({ employeeCreated });
-      setAddEditEmployee(initialStateAddEditEmployee);
+      add(employee);
+      setEmployee(initialState);
+    } else {
+      edit(employee);
+      setEmployee(initialState);
     }
   };
-  const cancelAddEmployee = () =>
-    setAddEditEmployee(initialStateAddEditEmployee);
+  const cancelEmployee = () => setEmployee(initialState);
 
   const initialStateDialog = {
     children: null,
@@ -86,15 +87,8 @@ export default function ({ employees, add }: ParamsEmployees) {
         {
           label: 'Accept',
           action: () => {
-            const employeeIndex = employees.findIndex(
-              (e) => e.id === employeeId
-            );
+            remove(employeeId);
             setDialog(initialStateDialog);
-            // setEmployees([
-            //   ...employees.slice(0, employeeIndex),
-            //   ...employees.slice(employeeIndex + 1),
-            // ]);
-
             setDialog({
               ...dialog,
               children: <p>Employee removing correctly?</p>,
@@ -107,19 +101,20 @@ export default function ({ employees, add }: ParamsEmployees) {
   };
 
   const handleEditEmployee = (employeeId: number) => {
-    const employee = employees.find((e) => e.id === employeeId);
-    setAddEditEmployee({ ...addEditEmployee, action: 'edit', ...employee });
+    const _employee = employees.find((e) => e.id === employeeId);
+    setEmployee({ ..._employee, action: 'edit' });
   };
 
   return (
     <Employees>
-      {employees.map((e) => {
-        if (e.id === addEditEmployee.id && addEditEmployee.action === 'edit') {
+      {employees.map((e, i) => {
+        if (e.id === employee.id && employee.action === 'edit') {
           return (
             <EmployeeForm
-              employee={addEditEmployee}
+              key={e.id * 1000}
+              employee={employee}
               save={saveEmployee}
-              cancel={cancelAddEmployee}
+              cancel={cancelEmployee}
             />
           );
         }
@@ -134,19 +129,17 @@ export default function ({ employees, add }: ParamsEmployees) {
         );
       })}
 
-      {addEditEmployee.action === 'add' && (
+      {employee.action === 'add' && (
         <EmployeeForm
-          employee={addEditEmployee}
+          employee={employee}
           save={saveEmployee}
-          cancel={cancelAddEmployee}
+          cancel={cancelEmployee}
         />
       )}
 
       <AddEmployeeButton
-        disabled={addEditEmployee.action !== ''}
-        onClick={() =>
-          setAddEditEmployee({ ...addEditEmployee, action: 'add' })
-        }
+        disabled={employee.action !== ''}
+        onClick={() => setEmployee({ ...employee, action: 'add' })}
       >
         Add Employee
       </AddEmployeeButton>

@@ -35,6 +35,14 @@ export default function ({ employee, remove, edit }: Params) {
   const age = employee.birth
     ? moment().diff(moment(employee.birth), 'years')
     : '';
+
+  const convertCurrency = (number: number) => {
+    const numberFormat = new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency: 'ARS',
+    });
+    return numberFormat.format(number);
+  };
   return (
     <Employee>
       <h4 className="title">
@@ -46,8 +54,13 @@ export default function ({ employee, remove, edit }: Params) {
       <small>
         <strong>{employee.monthlyHours}</strong> Hrs/month
       </small>
+      <small>
+        <strong>
+          {convertCurrency(employee.salary / employee.monthlyHours)}
+        </strong>
+      </small>
       <p className="salary">
-        <strong>${employee.salary}</strong>
+        <strong>{convertCurrency(employee.salary)}</strong>
       </p>
       <Button color="#2d73e3" onClick={() => edit(employee.id)}>
         Edit
