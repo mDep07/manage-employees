@@ -46,7 +46,7 @@ type Params = {
   actions?: { label: string; action: Function; bgColor?: string }[];
 };
 
-export default function ({ open, children, actions }: Params) {
+export default function ({ children, actions }: Params) {
   const [showModal, setShowModal] = useState(false);
   useEffect(() => setShowModal(!!children), [children]);
 

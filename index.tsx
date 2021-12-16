@@ -17,6 +17,11 @@ export interface IEmployee {
 }
 
 const Container = styled.main`
+  display: flex;
+  gap: 10px;
+  & > .container__item {
+    flex: 1;
+  }
 `;
 
 const App = () => {
@@ -32,13 +37,21 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <h4>Employees</h4>
-        <Employees
-          employees={employees}
-          add={addEmployee}
-          edit={editEmployee}
-          remove={deleteEmployee}
-        />
+        <div className="container__item">
+          <h4>Employees</h4>
+          <Employees
+            employees={employees}
+            add={addEmployee}
+            edit={editEmployee}
+            remove={deleteEmployee}
+          />
+        </div>
+        <div className="container__item">
+          <h4>Salaries</h4>
+          <label htmlFor="">
+            <input type="number" />
+          </label>
+        </div>
       </Container>
     </ThemeProvider>
   );

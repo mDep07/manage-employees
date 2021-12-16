@@ -10,7 +10,6 @@ import Dialog from './Dialog';
 const Employees = styled.section`
   --color: ${({ theme }) => theme.primary || '#CCC'};
   --color-2: ${({ theme }) => theme.secondary || 'blue'};
-  width: 50%;
 `;
 const AddEmployeeButton = styled.button`
   display: block;

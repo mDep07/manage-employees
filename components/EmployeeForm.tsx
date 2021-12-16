@@ -113,7 +113,7 @@ export default function ({ employee, save, cancel }: Params) {
           <StyledForm>
             <input id="id" name="id" type="hidden" value={values.id} />
             <StyledFormControl>
-              <StyledLabel for="lastName">Name</StyledLabel>
+              <StyledLabel htmlFor="lastName">Name</StyledLabel>
               <StyledField
                 id="name"
                 name="name"
@@ -127,7 +127,7 @@ export default function ({ employee, save, cancel }: Params) {
               )}
             </StyledFormControl>
             <StyledFormControl>
-              <StyledLabel for="lastName">Last Name</StyledLabel>
+              <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
               <StyledField
                 id="lastName"
                 name="lastName"
@@ -142,7 +142,7 @@ export default function ({ employee, save, cancel }: Params) {
             </StyledFormControl>
 
             <StyledFormControl>
-              <StyledLabel for="lastName">Birth</StyledLabel>
+              <StyledLabel htmlFor="lastName">Birth</StyledLabel>
               <StyledField
                 id="birth"
                 name="birth"
@@ -153,7 +153,7 @@ export default function ({ employee, save, cancel }: Params) {
             </StyledFormControl>
 
             <StyledFormControl>
-              <StyledLabel for="lastName">Worker From</StyledLabel>
+              <StyledLabel htmlFor="lastName">Worker From</StyledLabel>
               <StyledField
                 id="workerFrom"
                 name="workerFrom"
@@ -164,7 +164,7 @@ export default function ({ employee, save, cancel }: Params) {
             </StyledFormControl>
 
             <StyledFormControl>
-              <StyledLabel for="lastName">Salary</StyledLabel>
+              <StyledLabel htmlFor="lastName">Salary</StyledLabel>
               <StyledField
                 id="salary"
                 name="salary"
@@ -179,7 +179,7 @@ export default function ({ employee, save, cancel }: Params) {
             </StyledFormControl>
 
             <StyledFormControl>
-              <StyledLabel for="lastName">Monthly Hours</StyledLabel>
+              <StyledLabel htmlFor="lastName">Monthly Hours</StyledLabel>
               <StyledField
                 id="monthlyHours"
                 name="monthlyHours"
